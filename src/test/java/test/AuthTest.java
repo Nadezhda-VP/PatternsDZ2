@@ -1,5 +1,6 @@
-import org.example.RegistrationDtoUser;
-import org.example.RegistrationDtoUserGenerator;
+package test;
+
+import data.RegistrationDtoUserGenerator;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -11,17 +12,17 @@ class AuthTest {
 
     @Test
     void userRegisteredTest() {
-        RegistrationDtoUser user = RegistrationDtoUserGenerator.generateValidActive();
+        RegistrationDtoUserGenerator.RegistrationDtoUser user = RegistrationDtoUserGenerator.generateValidActive();
         open("http://localhost:9999");
         $("[data-test-id=login] input").setValue(user.getLogin());
         $("[data-test-id=password] input").setValue(user.getPassword());
         $("button[data-test-id=action-login]").click();
-        $("h2.heading.heading_size_l.heading_theme_alfa-on-white").shouldHave(text("Личный кабинет"));
+        $("h2").shouldHave(text("Личный кабинет"));
     }
 
     @Test
     void incorrectUsernameTest() {
-        RegistrationDtoUser user = RegistrationDtoUserGenerator.generateInvalidLogin();
+        RegistrationDtoUserGenerator.RegistrationDtoUser user = RegistrationDtoUserGenerator.generateInvalidLogin();
         open("http://localhost:9999");
         $("[data-test-id=login] input").setValue(user.getLogin());
         $("[data-test-id=password] input").setValue(user.getPassword());
@@ -33,7 +34,7 @@ class AuthTest {
 
     @Test
     void incorrectPasswordTest() {
-        RegistrationDtoUser user = RegistrationDtoUserGenerator.generateInvalidPassword();
+        RegistrationDtoUserGenerator.RegistrationDtoUser user = RegistrationDtoUserGenerator.generateInvalidPassword();
         open("http://localhost:9999");
         $("[data-test-id=login] input").setValue(user.getLogin());
         $("[data-test-id=password] input").setValue(user.getPassword());
@@ -45,7 +46,7 @@ class AuthTest {
 
     @Test
     void noPasswordTest() {
-        RegistrationDtoUser user = RegistrationDtoUserGenerator.generateValidActive();
+        RegistrationDtoUserGenerator.RegistrationDtoUser user = RegistrationDtoUserGenerator.generateValidActive();
         open("http://localhost:9999");
         $("[data-test-id=login] input").setValue(user.getLogin());
         $("button[data-test-id=action-login]").click();
@@ -54,7 +55,7 @@ class AuthTest {
 
     @Test
     void blockedUserSignInTest() {
-        RegistrationDtoUser user = RegistrationDtoUserGenerator.generateValidBlocked();
+        RegistrationDtoUserGenerator.RegistrationDtoUser user = RegistrationDtoUserGenerator.generateValidBlocked();
         open("http://localhost:9999");
         $("[data-test-id=login] input").setValue(user.getLogin());
         $("[data-test-id=password] input").setValue(user.getPassword());

@@ -1,4 +1,4 @@
-package org.example;
+package data;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
@@ -6,6 +6,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import lombok.Value;
 
 import java.util.Locale;
 
@@ -70,4 +71,12 @@ public class RegistrationDtoUserGenerator {
         return new RegistrationDtoUser(login,
                 faker.internet().password(), activeStatus);
     }
+
+    @Value
+    public static class RegistrationDtoUser {
+        private final String login;
+        private final String password;
+        private final String status;
+    }
+
 }
